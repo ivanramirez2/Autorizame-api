@@ -8,42 +8,78 @@ import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
+
 import com.example.autorizame_api.model.Repartidor;
 import com.example.autorizame_api.service.RepartidorService;
 
-// IoC + separación por capas.
+/**
+ * Implementación del servicio de Repartidores.
+ * Contiene toda la lógica de negocio del CRUD de repartidores.
+ */
 @Service
 public class RepartidorServiceImpl implements RepartidorService {
-    // Base de datos en memoria
+
+    /**
+     * Base de datos en memoria simulada.
+     * La clave es el ID del repartidor y el valor es el objeto Repartidor.
+     */
     private final Map<Long, Repartidor> data = new HashMap<>();
 
-    // Generador de IDs 
+    /**
+     * Generador automático de IDs para los repartidores.
+     */
     private final AtomicLong sequence = new AtomicLong(1);
 
-
+    /**
+     * Devuelve todos los repartidores del sistema.
+     *
+     * @return lista de repartidores
+     */
     @Override
     public List<Repartidor> findAll() {
         return new ArrayList<>(data.values());
     }
 
+    /**
+     * Busca un repartidor por su identificador.
+     *
+     * @param id identificador del repartidor
+     * @return repartidor encontrado
+     * @throws NoSuchElementException si no existe
+     */
     @Override
     public Repartidor findById(Long id) {
-        Repartidor cliente = data.get(id);
-        if (cliente == null) {
+        Repartidor repartidor = data.get(id);
+
+        if (repartidor == null) {
             throw new NoSuchElementException("Repartidor con id " + id + " no encontrado");
         }
-    return cliente;
+
+        return repartidor;
     }
 
+    /**
+     * Crea un nuevo repartidor en el sistema.
+     *
+     * @param repartidor repartidor a crear
+     * @return repartidor creado con ID asignado
+     */
     @Override
     public Repartidor create(Repartidor repartidor) {
-        Long id = sequence.getAndIncrement();  
-        repartidor.setId(id);                 
-        data.put(id, repartidor);           
-        return repartidor;                    
+        Long id = sequence.getAndIncrement();
+        repartidor.setId(id);
+        data.put(id, repartidor);
+        return repartidor;
     }
 
-
+    /**
+     * Actualiza un repartidor existente.
+     *
+     * @param id identificador del repartidor
+     * @param repartidor nuevos datos del repartidor
+     * @return repartidor actualizado
+     * @throws NoSuchElementException si no existe
+     */
     @Override
     public Repartidor update(Long id, Repartidor repartidor) {
         Repartidor existente = data.get(id);
@@ -59,6 +95,12 @@ public class RepartidorServiceImpl implements RepartidorService {
         return existente;
     }
 
+    /**
+     * Elimina un repartidor por su identificador.
+     *
+     * @param id identificador del repartidor
+     * @throws NoSuchElementException si no existe
+     */
     @Override
     public void delete(Long id) {
         Repartidor existente = data.get(id);
@@ -69,11 +111,4 @@ public class RepartidorServiceImpl implements RepartidorService {
 
         data.remove(id);
     }
-
-
-
-
-
-
-    
 }
