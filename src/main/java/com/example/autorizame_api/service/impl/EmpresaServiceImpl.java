@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
 
 import com.example.autorizame_api.model.Empresa;
 import com.example.autorizame_api.service.EmpresaService;
+
+import com.example.autorizame_api.exception.RecursoNoEncontradoException;
 
 /**
  * Implementación del servicio de Empresas.
@@ -45,14 +46,14 @@ public class EmpresaServiceImpl implements EmpresaService {
      *
      * @param id identificador de la empresa
      * @return empresa encontrada
-     * @throws NoSuchElementException si no existe
+     * @throws RecursoNoEncontradoException si no existe
      */
     @Override
     public Empresa findById(Long id) {
         Empresa empresa = data.get(id);
 
         if (empresa == null) {
-            throw new NoSuchElementException("Empresa con id " + id + " no encontrado");
+            throw new RecursoNoEncontradoException("Empresa con id " + id + " no encontrado");
         }
 
         return empresa;
@@ -78,14 +79,14 @@ public class EmpresaServiceImpl implements EmpresaService {
      * @param id identificador de la empresa
      * @param empresa nuevos datos de la empresa
      * @return empresa actualizada
-     * @throws NoSuchElementException si no existe
+     * @throws RecursoNoEncontradoException si no existe
      */
     @Override
     public Empresa update(Long id, Empresa empresa) {
         Empresa existente = data.get(id);
 
         if (existente == null) {
-            throw new NoSuchElementException("Empresa con id " + id + " no encontrado");
+            throw new RecursoNoEncontradoException("Empresa con id " + id + " no encontrado");
         }
 
         existente.setNombre(empresa.getNombre());
@@ -101,14 +102,14 @@ public class EmpresaServiceImpl implements EmpresaService {
      * Elimina una empresa por su identificador.
      *
      * @param id identificador de la empresa
-     * @throws NoSuchElementException si no existe
+     * @throws RecursoNoEncontradoException si no existe
      */
     @Override
     public void delete(Long id) {
         Empresa existente = data.get(id);
 
         if (existente == null) {
-            throw new NoSuchElementException("Empresa con id " + id + " no encontrado");
+            throw new RecursoNoEncontradoException("Empresa con id " + id + " no encontrado");
         }
 
         data.remove(id);

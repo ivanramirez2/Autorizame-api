@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
 
 import com.example.autorizame_api.model.Repartidor;
 import com.example.autorizame_api.service.RepartidorService;
+
+import com.example.autorizame_api.exception.RecursoNoEncontradoException;
 
 /**
  * Implementación del servicio de Repartidores.
@@ -45,14 +46,14 @@ public class RepartidorServiceImpl implements RepartidorService {
      *
      * @param id identificador del repartidor
      * @return repartidor encontrado
-     * @throws NoSuchElementException si no existe
+     * @throws RecursoNoEncontradoException si no existe
      */
     @Override
     public Repartidor findById(Long id) {
         Repartidor repartidor = data.get(id);
 
         if (repartidor == null) {
-            throw new NoSuchElementException("Repartidor con id " + id + " no encontrado");
+            throw new RecursoNoEncontradoException("Repartidor con id " + id + " no encontrado");
         }
 
         return repartidor;
@@ -78,14 +79,14 @@ public class RepartidorServiceImpl implements RepartidorService {
      * @param id identificador del repartidor
      * @param repartidor nuevos datos del repartidor
      * @return repartidor actualizado
-     * @throws NoSuchElementException si no existe
+     * @throws RecursoNoEncontradoException si no existe
      */
     @Override
     public Repartidor update(Long id, Repartidor repartidor) {
         Repartidor existente = data.get(id);
 
         if (existente == null) {
-            throw new NoSuchElementException("Repartidor con id " + id + " no encontrado");
+            throw new RecursoNoEncontradoException("Repartidor con id " + id + " no encontrado");
         }
 
         existente.setNombre(repartidor.getNombre());
@@ -99,14 +100,14 @@ public class RepartidorServiceImpl implements RepartidorService {
      * Elimina un repartidor por su identificador.
      *
      * @param id identificador del repartidor
-     * @throws NoSuchElementException si no existe
+     * @throws RecursoNoEncontradoException si no existe
      */
     @Override
     public void delete(Long id) {
         Repartidor existente = data.get(id);
 
         if (existente == null) {
-            throw new NoSuchElementException("Repartidor con id " + id + " no encontrado");
+            throw new RecursoNoEncontradoException("Repartidor con id " + id + " no encontrado");
         }
 
         data.remove(id);

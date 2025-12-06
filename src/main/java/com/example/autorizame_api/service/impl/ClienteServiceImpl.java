@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
 
 import com.example.autorizame_api.model.Cliente;
 import com.example.autorizame_api.service.ClienteService;
+
+import com.example.autorizame_api.exception.RecursoNoEncontradoException;
 
 /**
  * Implementación del servicio de Clientes.
@@ -45,14 +46,14 @@ public class ClienteServiceImpl implements ClienteService {
      *
      * @param id identificador del cliente
      * @return cliente encontrado
-     * @throws NoSuchElementException si no existe
+     * @throws RecursoNoEncontradoException si no existe
      */
     @Override
     public Cliente findById(Long id) {
         Cliente cliente = data.get(id);
 
         if (cliente == null) {
-            throw new NoSuchElementException("Cliente con id " + id + " no encontrado");
+            throw new RecursoNoEncontradoException("Cliente con id " + id + " no encontrado");
         }
 
         return cliente;
@@ -78,14 +79,14 @@ public class ClienteServiceImpl implements ClienteService {
      * @param id identificador del cliente
      * @param cliente nuevos datos del cliente
      * @return cliente actualizado
-     * @throws NoSuchElementException si no existe
+     * @throws RecursoNoEncontradoException si no existe
      */
     @Override
     public Cliente update(Long id, Cliente cliente) {
         Cliente existente = data.get(id);
 
         if (existente == null) {
-            throw new NoSuchElementException("Cliente con id " + id + " no encontrado");
+            throw new RecursoNoEncontradoException("Cliente con id " + id + " no encontrado");
         }
 
         existente.setNombre(cliente.getNombre());
@@ -99,14 +100,14 @@ public class ClienteServiceImpl implements ClienteService {
      * Elimina un cliente por su identificador.
      *
      * @param id identificador del cliente
-     * @throws NoSuchElementException si no existe
+     * @throws RecursoNoEncontradoException si no existe
      */
     @Override
     public void delete(Long id) {
         Cliente existente = data.get(id);
 
         if (existente == null) {
-            throw new NoSuchElementException("Cliente con id " + id + " no encontrado");
+            throw new RecursoNoEncontradoException("Cliente con id " + id + " no encontrado");
         }
 
         data.remove(id);

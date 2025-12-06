@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
+
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
 
 import com.example.autorizame_api.model.Autorizado;
 import com.example.autorizame_api.service.AutorizadoService;
+
+import com.example.autorizame_api.exception.RecursoNoEncontradoException;
+
 
 /**
  * Implementación del servicio de Autorizados.
@@ -45,14 +48,14 @@ public class AutorizadoServiceImpl implements AutorizadoService {
      *
      * @param id identificador del autorizado
      * @return autorizado encontrado
-     * @throws NoSuchElementException si no existe
+     * @throws RecursoNoEncontradoException si no existe
      */
     @Override
     public Autorizado findById(Long id) {
         Autorizado autorizado = data.get(id);
 
         if (autorizado == null) {
-            throw new NoSuchElementException("Autorizado con id " + id + " no encontrado");
+            throw new RecursoNoEncontradoException("Autorizado con id " + id + " no encontrado");
         }
 
         return autorizado;
@@ -78,14 +81,14 @@ public class AutorizadoServiceImpl implements AutorizadoService {
      * @param id identificador del autorizado
      * @param autorizado nuevos datos del autorizado
      * @return autorizado actualizado
-     * @throws NoSuchElementException si no existe
+     * @throws RecursoNoEncontradoException si no existe
      */
     @Override
     public Autorizado update(Long id, Autorizado autorizado) {
         Autorizado existente = data.get(id);
 
         if (existente == null) {
-            throw new NoSuchElementException("Autorizado con id " + id + " no encontrado");
+            throw new RecursoNoEncontradoException("Autorizado con id " + id + " no encontrado");
         }
 
         existente.setNombre(autorizado.getNombre());
@@ -99,14 +102,14 @@ public class AutorizadoServiceImpl implements AutorizadoService {
      * Elimina un autorizado por su identificador.
      *
      * @param id identificador del autorizado
-     * @throws NoSuchElementException si no existe
+     * @throws RecursoNoEncontradoException si no existe
      */
     @Override
     public void delete(Long id) {
         Autorizado existente = data.get(id);
 
         if (existente == null) {
-            throw new NoSuchElementException("Autorizado con id " + id + " no encontrado");
+            throw new RecursoNoEncontradoException("Autorizado con id " + id + " no encontrado");
         }
 
         data.remove(id);

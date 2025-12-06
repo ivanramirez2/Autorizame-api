@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
 
 import com.example.autorizame_api.model.Pedido;
 import com.example.autorizame_api.service.PedidoService;
+
+import com.example.autorizame_api.exception.RecursoNoEncontradoException;
 
 /**
  * Implementación del servicio de Pedidos.
@@ -46,14 +47,14 @@ public class PedidoServiceImpl implements PedidoService {
      *
      * @param id identificador del pedido
      * @return pedido encontrado
-     * @throws NoSuchElementException si no existe
+     * @throws RecursoNoEncontradoException si no existe
      */
     @Override
     public Pedido findById(Long id) {
         Pedido pedido = data.get(id);
 
         if (pedido == null) {
-            throw new NoSuchElementException("Pedido con id " + id + " no encontrado");
+            throw new RecursoNoEncontradoException("Pedido con id " + id + " no encontrado");
         }
 
         return pedido;
@@ -101,7 +102,7 @@ public class PedidoServiceImpl implements PedidoService {
         Pedido existente = data.get(id);
 
         if (existente == null) {
-            throw new NoSuchElementException("Pedido con id " + id + " no encontrado");
+            throw new RecursoNoEncontradoException("Pedido con id " + id + " no encontrado");
         }
 
         existente.setDescripcion(pedido.getDescripcion());
@@ -125,7 +126,7 @@ public class PedidoServiceImpl implements PedidoService {
         Pedido existente = data.get(id);
 
         if (existente == null) {
-            throw new NoSuchElementException("Pedido con id " + id + " no encontrado");
+            throw new RecursoNoEncontradoException("Pedido con id " + id + " no encontrado");
         }
 
         data.remove(id);
