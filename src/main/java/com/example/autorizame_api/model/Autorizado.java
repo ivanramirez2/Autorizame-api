@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 
 
 
-public class Cliente {
+public class Autorizado {
 
     private Long id;
 
@@ -19,7 +19,7 @@ public class Cliente {
     @Size(max = 200)
     private String direccion;
 
-    public Cliente(){
+    public Autorizado(){
         
     }
 
@@ -54,7 +54,6 @@ public class Cliente {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-
 
 }
 
