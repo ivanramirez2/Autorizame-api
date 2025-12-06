@@ -18,6 +18,8 @@ public interface PedidoService {
 
     void delete(Long id);
 
+    Long countByCliente(Long idCliente);
+
 }
 
     

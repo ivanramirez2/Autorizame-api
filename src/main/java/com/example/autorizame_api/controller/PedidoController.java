@@ -4,12 +4,14 @@ import com.example.autorizame_api.model.Pedido;
 import com.example.autorizame_api.service.PedidoService;
 
 import jakarta.validation.Valid;
+import java.util.HashMap;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/pedidos")
@@ -52,4 +54,18 @@ public class PedidoController {
         pedidoService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+
+    @GetMapping("/cliente/{idCliente}/total")
+    public ResponseEntity<Map<String, Object>> totalPorCliente(@PathVariable Long idCliente) {
+
+    long total = pedidoService.countByCliente(idCliente);
+
+    Map<String, Object> response = new HashMap<String, Object>();
+    response.put("idCliente", idCliente);
+    response.put("totalPedidos", total);
+
+    return ResponseEntity.ok(response);
+}
+
 }

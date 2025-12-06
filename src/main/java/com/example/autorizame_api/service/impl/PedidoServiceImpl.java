@@ -32,15 +32,26 @@ public class PedidoServiceImpl implements PedidoService {
         if (pedido == null) {
             throw new NoSuchElementException("Pedido con id " + id + " no encontrado");
         }
-    return pedido;
+        return pedido;
     }
 
     @Override
-    public Pedido create(Pedido Pedido) {
+    public Pedido create(Pedido pedido) {
+
+        if (pedido.getIdCliente() == null ||
+            pedido.getIdAutorizado() == null ||
+            pedido.getIdRepartidor() == null ||
+            pedido.getIdEmpresa() == null) {
+
+            throw new IllegalArgumentException("Todos los IDs relacionados son obligatorios");
+        }
+
+
         Long id = sequence.getAndIncrement();  
-        Pedido.setId(id);                 
-        data.put(id, Pedido);           
-        return Pedido;                    
+        pedido.setId(id);                 
+        data.put(id, pedido); 
+        
+        return pedido;                    
     }
 
 
@@ -75,10 +86,13 @@ public class PedidoServiceImpl implements PedidoService {
         data.remove(id);
     }
 
+    @Override
+    public Long countByCliente(Long idCliente){
+        return data.values()
+                    .stream()
+                    .filter(p -> p.getIdCliente().equals(idCliente))
+                    .count();
+    }
 
 
-
-
-
-    
 }
