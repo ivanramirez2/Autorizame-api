@@ -16,9 +16,8 @@ public class Cliente {
     @Email
     private String email;
     
-    @Size(max = 200)
+    @Size(max = 42)
     private String address;
-
 
 
     public Cliente(){
@@ -56,7 +55,5 @@ public class Cliente {
     public void setAddress(String address) {
         this.address = address;
     }
-
-
 }
 

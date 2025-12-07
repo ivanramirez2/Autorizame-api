@@ -16,7 +16,7 @@ public class Autorizado {
     @Email
     private String email;
     
-    @Size(max = 200)
+    @Size(max = 42)
     private String address;
 
     public Autorizado(){

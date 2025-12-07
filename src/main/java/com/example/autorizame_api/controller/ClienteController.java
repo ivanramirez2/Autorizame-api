@@ -2,7 +2,6 @@ package com.example.autorizame_api.controller;
 
 import com.example.autorizame_api.model.Autorizado;
 import com.example.autorizame_api.model.Cliente;
-import com.example.autorizame_api.model.Pedido;
 import com.example.autorizame_api.service.AutorizadoService;
 import com.example.autorizame_api.service.ClienteService;
 import com.example.autorizame_api.service.PedidoService;
