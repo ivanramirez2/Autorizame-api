@@ -117,11 +117,11 @@ public class AutorizadoServiceImpl implements AutorizadoService {
 
 
 
-     /**
-     * Elimina un autorizado por su identificador.
+    /**
+     * Obtiene una lista de autorizados a partir de una lista de identificadores.
      *
-     * @param id identificador del autorizado
-     * @throws RecursoNoEncontradoException si no existe
+     * @param ids lista de identificadores de autorizados
+     * @return lista de autorizados encontrados
      */
     @Override
     public List<Autorizado> findByIds(List<Long> ids) {
@@ -130,5 +130,6 @@ public class AutorizadoServiceImpl implements AutorizadoService {
                 .filter(a -> ids.contains(a.getId()))
                 .toList();
     }
+
 
 }
