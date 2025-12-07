@@ -17,6 +17,9 @@ public interface AutorizadoService {
 
     void delete(Long id);
 
+    List<Autorizado> findByIds(List<Long> ids);
+
+
 }
 
     

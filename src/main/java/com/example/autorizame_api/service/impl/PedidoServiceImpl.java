@@ -146,4 +146,25 @@ public class PedidoServiceImpl implements PedidoService {
                 .filter(p -> p.getIdCliente().equals(idCliente)) // Solo los del cliente
                 .count();    // Cuenta cuántos hay
     }
+
+    /**
+     * AGREGACIÓN:
+     * Devuelve cuántos autorizados tiene un cliente.
+     *
+     * @param idCliente identificador del cliente
+     * @return Autorizados del cliente
+     */
+    @Override
+    public List<Long> findAutorizadosIdsByCliente(Long idCliente) {
+    return data.values() // Todos los pedidos
+            .stream()
+            .filter(p -> p.getIdCliente().equals(idCliente)) // Solo los del cliente
+            .map(Pedido::getIdAutorizado) // Extrae solo el idAutorizado
+            .distinct()
+            .toList();
+    }
+
+
+
 }
+

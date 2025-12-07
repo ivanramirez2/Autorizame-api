@@ -114,4 +114,21 @@ public class AutorizadoServiceImpl implements AutorizadoService {
 
         data.remove(id);
     }
+
+
+
+     /**
+     * Elimina un autorizado por su identificador.
+     *
+     * @param id identificador del autorizado
+     * @throws RecursoNoEncontradoException si no existe
+     */
+    @Override
+    public List<Autorizado> findByIds(List<Long> ids) {
+        return data.values()
+                .stream()
+                .filter(a -> ids.contains(a.getId()))
+                .toList();
+    }
+
 }

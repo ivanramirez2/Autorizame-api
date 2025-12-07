@@ -20,6 +20,9 @@ public interface PedidoService {
 
     Long countByCliente(Long idCliente);
 
+    List<Long> findAutorizadosIdsByCliente(Long idCliente);
+
+
 }
 
     

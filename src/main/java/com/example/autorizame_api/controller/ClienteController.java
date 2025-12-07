@@ -1,7 +1,11 @@
 package com.example.autorizame_api.controller;
 
+import com.example.autorizame_api.model.Autorizado;
 import com.example.autorizame_api.model.Cliente;
+import com.example.autorizame_api.model.Pedido;
+import com.example.autorizame_api.service.AutorizadoService;
 import com.example.autorizame_api.service.ClienteService;
+import com.example.autorizame_api.service.PedidoService;
 
 import jakarta.validation.Valid;
 
@@ -39,9 +43,15 @@ import java.util.List;
 public class ClienteController {
 
     private final ClienteService clienteService;
+    private final PedidoService pedidoService;
+    private final AutorizadoService autorizadoService;
 
-    public ClienteController(ClienteService clienteService) {
+
+    public ClienteController(ClienteService clienteService,PedidoService pedidoService, AutorizadoService autorizadoService
+    ) {
         this.clienteService = clienteService;
+        this.pedidoService = pedidoService;
+        this.autorizadoService = autorizadoService;
     }
 
     @GetMapping("/")
@@ -76,4 +86,18 @@ public class ClienteController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/{idCliente}/autorizados")
+    public ResponseEntity<List<Autorizado>> getAutorizadosByCliente(@PathVariable Long idCliente) {
+
+        // Verificamos que el cliente existe
+        clienteService.findById(idCliente);
+
+        // Obtenemos los IDs de autorizados desde los pedidos
+        List<Long> autorizadosIds = pedidoService.findAutorizadosIdsByCliente(idCliente);
+
+        // Convertimos IDs en objetos Autorizado
+        List<Autorizado> autorizados = autorizadoService.findByIds(autorizadosIds);
+
+        return ResponseEntity.ok(autorizados);
+    }
 }
