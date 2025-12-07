@@ -93,7 +93,7 @@ public class AutorizadoServiceImpl implements AutorizadoService {
 
         existente.setNombre(autorizado.getNombre());
         existente.setEmail(autorizado.getEmail());
-        existente.setDireccion(autorizado.getDireccion());
+        existente.setAddress(autorizado.getAddress());
 
         return existente;
     }

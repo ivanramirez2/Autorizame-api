@@ -91,7 +91,7 @@ public class ClienteServiceImpl implements ClienteService {
 
         existente.setNombre(cliente.getNombre());
         existente.setEmail(cliente.getEmail());
-        existente.setDireccion(cliente.getDireccion());
+        existente.setAddress(cliente.getAddress());
 
         return existente;
     }

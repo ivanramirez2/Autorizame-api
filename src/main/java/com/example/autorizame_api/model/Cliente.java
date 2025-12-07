@@ -17,7 +17,7 @@ public class Cliente {
     private String email;
     
     @Size(max = 200)
-    private String direccion;
+    private String address;
 
     public Cliente(){
         
@@ -47,12 +47,12 @@ public class Cliente {
         this.email = email;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getAddress() {
+        return address;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
 
