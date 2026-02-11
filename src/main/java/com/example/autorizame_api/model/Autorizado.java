@@ -1,26 +1,37 @@
 package com.example.autorizame_api.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-
-
+@Entity
+@Table(name = "autorizados")
 public class Autorizado {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
+    @Column(nullable = false)
     private String nombre;
 
     @Email
+    @Column(unique = true)
     private String email;
-    
+
     @Size(max = 42)
+    @Column(length = 42)
     private String address;
 
-    public Autorizado(){
-        
+    public Autorizado() {
+
     }
 
     public Long getId() {
@@ -56,4 +67,3 @@ public class Autorizado {
     }
 
 }
-
